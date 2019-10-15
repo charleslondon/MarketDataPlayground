@@ -53,7 +53,7 @@ enum class MarketId : uint16_t
 	NYSE_NATIONAL_EQUITIES = 10
 };
 
-enum class SecurityMarketStatus : unsigned char
+enum class SecurityMarketStatus : char
 {
 	PRE_OPENING = 'P',
 	EARLY_SESSION = 'E',
@@ -62,7 +62,7 @@ enum class SecurityMarketStatus : unsigned char
 	CLOSED = 'X'
 };
 
-enum class ExchangeId : unsigned char
+enum class ExchangeId : char
 {
 	UNSET_DEFAULT = ' ',
 	NYSE_AMERICAN = 'A',

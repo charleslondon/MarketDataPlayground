@@ -15,7 +15,7 @@ void Decoder::popuateSymbolIndexMap(const SymbolIndexMappingMessage& message)
 void Decoder::updateOrderBook(const TradeMessage& trade)
 {
 	SymbolIndexMappingMessage indexMapping = symbolMap.at(trade.symbolIndex);
-	
+
 	std::string securityName = std::string(indexMapping.symbol);
 
 	if (trackedSecurities.find(securityName) == trackedSecurities.end())
@@ -39,7 +39,7 @@ void Decoder::decodePacket(char packetData[], const int packetSize)
 	XdpPacketHeader xdpPacketHeader;
 	memcpy(&xdpPacketHeader, packetData, sizeof(XdpPacketHeader));
 	packetData += sizeof(XdpPacketHeader);
-	
+
 	XdpMessageHeader xdpMessageHeader;
 	for (int ii = 0; ii < xdpPacketHeader.numberMsgs; ++ii)
 	{
@@ -82,6 +82,6 @@ void Decoder::decodePacket(char packetData[], const int packetSize)
 
 		packetData += (xdpMessageHeader.msgSize - sizeof(XdpMessageHeader));
 	}
-	
+
 	return;
 }

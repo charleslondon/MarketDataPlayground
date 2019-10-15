@@ -19,7 +19,7 @@ class Decoder
 private:
 	/*Symbol index to Symbol IndexMessage*/
 	static std::unordered_map<uint32_t, SymbolIndexMappingMessage> symbolMap;
-	
+
 	/*The stock mapped to a list of timestamp/prices */
 	static std::unordered_map<std::string, std::vector<TimestampedTrades>> trackedSecurities;
 

@@ -13,18 +13,18 @@ static const unsigned int TRADE_SIZE = sizeof(Trade);
 void decodePayload(std::ifstream& fin, FILE* fptr)
 {
 	PayloadHeader payloadHeader;
-	fin.read((char*)& payloadHeader, sizeof(payloadHeader));
+	fin.read((char*)&payloadHeader, sizeof(payloadHeader));
 
 	std::streamoff skip = ntohs(payloadHeader.length) - PAYLOAD_HEADER_SIZE;
 
 	if (payloadHeader.type == TRADE_PAYLOAD)
 	{
 		Trade trade;
-		fin.read((char*)& trade, sizeof(trade));
-		
-		fprintf(fptr, "%d %s @ %.2f \n", 
-			(ntohs(trade.tradeSize) * 100), 
-			&DataUtils::trimmedString(payloadHeader.symbol)[0], 
+		fin.read((char*)&trade, sizeof(trade));
+
+		fprintf(fptr, "%d %s @ %.2f \n",
+			(ntohs(trade.tradeSize) * 100),
+			&DataUtils::trimmedString(payloadHeader.symbol)[0],
 			double(ntohll(trade.tradePrice)) / 10000);
 
 		skip -= TRADE_SIZE;
@@ -42,7 +42,7 @@ void decodeFile(const std::string& inputFileName, const std::string& outputFileN
 	PacketHeader packetHeader;
 	while (!fin.eof())
 	{
-		fin.read((char*)& packetHeader, sizeof(packetHeader));
+		fin.read((char*)&packetHeader, sizeof(packetHeader));
 
 		for (int ii = 0; ii < ntohs(packetHeader.numUpdates); ++ii)
 		{
@@ -57,7 +57,7 @@ void decodeFile(const std::string& inputFileName, const std::string& outputFileN
 int main()
 {
 	decodeFile(
-		"C:/Users/charl/Documents/PROJECTS/GTS Code Assignment/input.dat", 
+		"C:/Users/charl/Documents/PROJECTS/GTS Code Assignment/input.dat",
 		"C:/Users/charl/Documents/PROJECTS/GTS Code Assignment/output.txt");
 
 	return 0;

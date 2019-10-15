@@ -40,13 +40,13 @@ struct SymbolIndexMappingMessage
 	uint8_t reserved1;
 	MarketId marketId;
 	uint8_t systemId;
-	unsigned char exchangeCode;
+	char exchangeCode;
 	uint8_t priceScaleCode;
-	unsigned char securityType;
+	char securityType;
 	uint16_t lotSize;
 	uint32_t prevClosePrice;
 	uint32_t prevCloseVolume;
-	unsigned char roundLot;
+	char roundLot;
 	uint16_t mpv;
 	uint16_t unitOfTrade;
 	uint16_t reserved2;
@@ -66,17 +66,17 @@ struct SecurityStatusMessage
 	uint32_t sourceTimeNs;
 	uint32_t symbolIndex;
 	uint32_t symbolSeqNum;
-	unsigned char securityStatus;
-	unsigned char haltCondition;
+	char securityStatus;
+	char haltCondition;
 	uint32_t reserved;
 	uint32_t price1;
 	uint32_t price2;
 	ExchangeId ssrTriggeringExchangeId;
 	uint32_t ssrTriggeringVolume;
 	uint32_t time;
-	unsigned char ssrState;
+	char ssrState;
 	SecurityMarketStatus marketState;
-	unsigned char sessionState;
+	char sessionState;
 };
 
 struct TradeMessage
@@ -88,9 +88,9 @@ struct TradeMessage
 	uint32_t tradeId;
 	uint32_t price;
 	uint32_t volume;
-	unsigned char tradeCond1;
-	unsigned char tradeCond2;
-	unsigned char tradeCond3;
-	unsigned char tradeCond4;
+	char tradeCond1;
+	char tradeCond2;
+	char tradeCond3;
+	char tradeCond4;
 };
 #pragma pack(pop)

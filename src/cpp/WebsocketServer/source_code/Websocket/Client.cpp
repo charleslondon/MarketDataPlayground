@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include<winsock2.h>
 #include <ws2tcpip.h>
-#pragma comment(lib,"ws2_32.lib") //Winsock Library
+#pragma comment(lib, "ws2_32.lib") //Winsock Library
 #include "Decoder/Decoder.h"
 
 int main()
@@ -46,7 +46,7 @@ int main()
 	/*Sit in loop just listening forever*/
 	while (true)
 	{
-		memset(buffer, '\0', MAX_PACKET_SIZE); 
+		memset(buffer, '\0', MAX_PACKET_SIZE);
 
 		/*RecvFrom is a blocking call, will wait here for the next packet*/
 		if (recvfrom(sock, buffer, MAX_PACKET_SIZE, 0, (struct sockaddr*) & si_other, &slen) != SOCKET_ERROR)
