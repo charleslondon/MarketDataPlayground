@@ -31,7 +31,7 @@ void Decoder::updateOrderBook(const TradeMessage& trade)
 
 void Decoder::clearSymbolIndexMap()
 {
-
+	symbolMap.clear();
 }
 
 void Decoder::decodePacket(char packetData[], const int packetSize)
