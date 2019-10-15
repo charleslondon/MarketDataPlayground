@@ -94,7 +94,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)source_code;$(SolutionDir)/../boost_1_71_0/;$(SolutionDir)/../pcapplusplus-19.04-windows-vs2015</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)source_code</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
