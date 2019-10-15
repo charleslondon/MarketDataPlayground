@@ -1,8 +1,8 @@
+#include <stdio.h>
 #include<winsock2.h>
 #include <ws2tcpip.h>
 #pragma comment(lib,"ws2_32.lib") //Winsock Library
-#include <stdio.h>
-#include "Decoder.h"
+#include "Decoder/Decoder.h"
 
 int main()
 {
@@ -42,8 +42,6 @@ int main()
 	char buffer[MAX_PACKET_SIZE];
 	struct sockaddr_in si_other;
 	int slen = sizeof(si_other);
-	int recv_len;
-	int packetCount = 0;
 
 	/*Sit in loop just listening forever*/
 	while (true)
@@ -54,7 +52,6 @@ int main()
 		if (recvfrom(sock, buffer, MAX_PACKET_SIZE, 0, (struct sockaddr*) & si_other, &slen) != SOCKET_ERROR)
 		{
 			Decoder::decodePacket(buffer, slen);
-			packetCount++;
 		}
 	}
 

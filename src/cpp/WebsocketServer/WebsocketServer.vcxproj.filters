@@ -15,21 +15,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Client.cpp">
+    <ClCompile Include="source_code\Websocket\Client.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Decoder.cpp">
+    <ClCompile Include="source_code\Decoder\Decoder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Enums.h">
+    <ClInclude Include="source_code\Model\Enums.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Messages.h">
+    <ClInclude Include="source_code\Model\Messages.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Decoder.h">
+    <ClInclude Include="source_code\Decoder\Decoder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
