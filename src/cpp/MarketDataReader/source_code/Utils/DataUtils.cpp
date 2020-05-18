@@ -33,4 +33,3 @@ std::string DataUtils::trimmedString(const char* input)
 
 	return std::string(input, stopper);
 }
-

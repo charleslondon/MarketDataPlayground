@@ -1,7 +1,7 @@
 #include <string>
 #include <fstream>
-#include "Model/DataStructs.h"
-#include "Utils/DataUtils.h"
+#include "../Model/DataStructs.h"
+#include "../Utils/DataUtils.h"
 #include <winsock2.h>
 #pragma comment(lib, "Ws2_32.lib")
 

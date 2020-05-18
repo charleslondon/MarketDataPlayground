@@ -1,37 +1,38 @@
 #include "Decoder.h"
 #include <string>
 #include <utility>
-#include <math.h> 
+#include <math.h>
 
-std::unordered_map<uint32_t, SymbolIndexMappingMessage> Decoder::symbolMap;
-std::unordered_map<std::string, std::vector<TimestampedTrades>> Decoder::trackedSecurities;
+Decoder::Decoder() :
+	symbolMap(std::unordered_map<uint32_t, SymbolIndexMappingMessage>()),
+	mqConnection(AmqpClient::Channel::Create())
+{
+}
 
 void Decoder::popuateSymbolIndexMap(const SymbolIndexMappingMessage& message)
 {
 	symbolMap.insert(std::pair<uint32_t, SymbolIndexMappingMessage>(message.symbolIndex, message));
 }
 
-
 void Decoder::updateOrderBook(const TradeMessage& trade)
 {
-	SymbolIndexMappingMessage indexMapping = symbolMap.at(trade.symbolIndex);
+	SymbolIndexMappingMessage mapping = symbolMap.at(trade.symbolIndex);
 
-	std::string securityName = std::string(indexMapping.symbol);
+	auto message = SymbolMessage(
+		mapping.symbol,
+		trade.price / pow(10, mapping.priceScaleCode),
+		trade.sourceTime,
+		trade.sourceTimeNs);
 
-	if (trackedSecurities.find(securityName) == trackedSecurities.end())
-	{
-		trackedSecurities.insert(std::make_pair(securityName, std::vector<TimestampedTrades>()));
-	}
-
-	Timestamp timestamp = { trade.sourceTime, trade.sourceTimeNs };
-	TimestampedTrades timedTrade = { timestamp, (double(trade.price) / pow(10, indexMapping.priceScaleCode)) };
-
-	trackedSecurities.at(securityName).emplace_back(timedTrade);
+	mqConnection->BasicPublish(
+		"TEST",		/*The Default Exchange*/
+		"key",	/*Using the stock ticker as our routing key*/
+		AmqpClient::BasicMessage::Create(message.serialize()));
 }
 
 void Decoder::clearSymbolIndexMap()
 {
-	symbolMap.clear();
+	//symbolMap.clear();
 }
 
 void Decoder::decodePacket(char packetData[], const int packetSize)

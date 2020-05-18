@@ -1,31 +1,49 @@
 #pragma once
 #include <unordered_map>
+#include <memory>
+#include <string>
 #include "Model/Messages.h"
+#include <SimpleAmqpClient/SimpleAmqpClient.h>
 
-struct Timestamp
+struct SymbolMessage
 {
-	uint32_t secondsSinceEpoch;
-	uint32_t currentNanoSeconds;
-};
+	SymbolMessage() = delete;
 
-struct TimestampedTrades
-{
-	Timestamp time;
-	double price;
+	SymbolMessage(
+		const std::string& newSymbol,
+		const double newPrice,
+		const uint32_t newSourceTime,
+		const uint32_t newSourceTimeNs) :
+		symbol(newSymbol),
+		price(std::to_string(newPrice)),
+		time(std::to_string(newSourceTime)
+			.append(".")
+			.append(std::to_string(newSourceTimeNs))) {}
+
+	std::string serialize() const
+	{
+		return
+			"Symbol:" + symbol +
+			",Price:" + price +
+			",Time:" + time;
+	}
+
+	const std::string symbol;
+	const std::string price;
+	const std::string time;
 };
 
 class Decoder
 {
 private:
 	/*Symbol index to Symbol IndexMessage*/
-	static std::unordered_map<uint32_t, SymbolIndexMappingMessage> symbolMap;
-
-	/*The stock mapped to a list of timestamp/prices */
-	static std::unordered_map<std::string, std::vector<TimestampedTrades>> trackedSecurities;
+	std::unordered_map<uint32_t, SymbolIndexMappingMessage> symbolMap;
+	AmqpClient::Channel::ptr_t mqConnection;
 
 public:
-	static void decodePacket(char packetData[], const int packetSize);
-	static void popuateSymbolIndexMap(const SymbolIndexMappingMessage& message);
-	static void clearSymbolIndexMap();
-	static void updateOrderBook(const TradeMessage& trade);
+	Decoder();
+	void decodePacket(char packetData[], const int packetSize);
+	void popuateSymbolIndexMap(const SymbolIndexMappingMessage& message);
+	void clearSymbolIndexMap();
+	void updateOrderBook(const TradeMessage& trade);
 };
