@@ -13,7 +13,7 @@ Project Goals:
 
 2) Creation of binary parser to decode previously mentioned data stream. Only going to decode minimal amount of payloads required to
    visualize price data in the sample.
-
+   
 3) Build python frontend for displaying the information. Exploration of different plotting libaries will be main goal of this segment.
 
 4) Make use of IPC technologies to facilitate flow of information to and from disparate processes (C++ -> Python communication).
