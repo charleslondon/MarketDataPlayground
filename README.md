@@ -10,7 +10,8 @@ Project Goals:
     
 1b) Emulate real-time data stream by altering NYSE supplied sample .pcap file to use target IP address of my choosing use a tool such as
     UDP/TCP for a faux-live playback.
-    Sample data can be found [here](ftp.nyxdata.com/).
+    Sample data can be found here : ftp://ftp.nyxdata.com/Real Time Data Samples/
+    Sadly, due to Github's markdown system you will have to manually copy this link into browser.
 
 2) Creation of binary parser to decode previously mentioned data stream. Only going to decode minimal amount of payloads required to
    visualize price data in the sample.
@@ -26,3 +27,4 @@ Future Goals:
 
 6) Explore containerization technologies. Most likely this will translate to putting the C++, Python, and RabbitMQ server process all
    in different docker images and making sure to keep all functionality intact. 
+   
