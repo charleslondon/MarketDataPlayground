@@ -9,8 +9,8 @@ Project Goals:
     Spec can be found [here](https://www.nyse.com/market-data/real-time/integrated-feed).
     
 1b) Emulate real-time data stream by altering NYSE supplied sample .pcap file to use target IP address of my choosing use a tool such as
-    UDP/TCP for a faux-live playback.
-    Sample data can be found here : ftp://ftp.nyxdata.com/Real Time Data Samples/
+    UDP/TCP for a faux-live playback. 
+    <br><br> Sample data can be found here : ftp://ftp.nyxdata.com/Real Time Data Samples/ <br>
     Sadly, due to Github's markdown system you will have to manually copy this link into browser.
 
 2) Creation of binary parser to decode previously mentioned data stream. Only going to decode minimal amount of payloads required to
