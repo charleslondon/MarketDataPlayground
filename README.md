@@ -6,11 +6,11 @@ Minimum working product for exercising some engineering skills at home.
 Project Goals:
 
 1a) Creation of C++ application that can listen on a websocket to a live feed of binary data following the NYSE pillar specification.
-    Spec can be found here : https://www.nyse.com/market-data/real-time/integrated-feed.
+    Spec can be found here : "https://www.nyse.com/market-data/real-time/integrated-feed".
     
 1b) Emulate real-time data stream by altering NYSE supplied sample .pcap file to use target IP address of my choosing use a tool such as
     UDP/TCP for a faux-live playback.
-    Sample data can be found here : ftp://ftp.nyxdata.com/Real%20Time%20Data%20Samples/
+    Sample data can be found here : "ftp://ftp.nyxdata.com/Real Time Data Samples/"
 
 2) Creation of binary parser to decode previously mentioned data stream. Only going to decode minimal amount of payloads required to
    visualize price data in the sample.
