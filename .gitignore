@@ -6,3 +6,4 @@ obj
 bin
 .vscode/
 __pycache__/
+NYSE_DATA/
