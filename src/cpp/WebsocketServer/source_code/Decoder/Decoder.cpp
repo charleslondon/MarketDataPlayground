@@ -46,43 +46,114 @@ void Decoder::decodePacket(char packetData[], const int packetSize)
 	{
 		memcpy(&xdpMessageHeader, packetData, sizeof(XdpMessageHeader));
 		packetData += sizeof(XdpMessageHeader);
-
-		switch (xdpMessageHeader.msgType)
-		{
-		case MessageType::TRADE:
-			TradeMessage tMessage;
-			memcpy(&tMessage, packetData, sizeof(TradeMessage));
-			updateOrderBook(tMessage);
-			break;
-
-		case MessageType::SEQUENCE_NUMBER_RESET:
-			SequenceNumberResetMessage snrMessage;
-			memcpy(&snrMessage, packetData, sizeof(SequenceNumberResetMessage));
-			break;
-
-		case MessageType::SYMBOL_INDEX_MAPPING:
-			SymbolIndexMappingMessage simMessage;
-			memcpy(&simMessage, packetData, sizeof(SymbolIndexMappingMessage));
-			popuateSymbolIndexMap(simMessage);
-			break;
-
-		case MessageType::SYMBOL_CLEAR:
-			SymbolClearMessage scMessage;
-			memcpy(&scMessage, packetData, sizeof(SymbolClearMessage));
-			clearSymbolIndexMap();
-			break;
-
-		case MessageType::SECURITY_STATUS:
-			SecurityStatusMessage ssMessage;
-			memcpy(&ssMessage, packetData, sizeof(SecurityStatusMessage));
-			break;
-
-		default:
-			throw;
-		}
-
+		handleMessage(xdpMessageHeader.msgType, packetData);
 		packetData += (xdpMessageHeader.msgSize - sizeof(XdpMessageHeader));
 	}
+}
 
-	return;
+void Decoder::handleMessage(MessageType msgType, char packetData[])
+{
+	switch (msgType)
+	{
+	case MessageType::TRADE:
+		TradeMessage tMessage;
+		memcpy(&tMessage, packetData, sizeof(TradeMessage));
+		updateOrderBook(tMessage);
+		break;
+
+	case MessageType::SEQUENCE_NUMBER_RESET:
+		SequenceNumberResetMessage snrMessage;
+		memcpy(&snrMessage, packetData, sizeof(SequenceNumberResetMessage));
+		break;
+
+	case MessageType::SYMBOL_INDEX_MAPPING:
+		SymbolIndexMappingMessage simMessage;
+		memcpy(&simMessage, packetData, sizeof(SymbolIndexMappingMessage));
+		popuateSymbolIndexMap(simMessage);
+		break;
+
+	case MessageType::SYMBOL_CLEAR:
+		SymbolClearMessage scMessage;
+		memcpy(&scMessage, packetData, sizeof(SymbolClearMessage));
+		clearSymbolIndexMap();
+		break;
+
+	case MessageType::SECURITY_STATUS:
+		SecurityStatusMessage ssMessage;
+		memcpy(&ssMessage, packetData, sizeof(SecurityStatusMessage));
+		break;
+
+	case MessageType::SOURCE_TIME_REFERENCE:
+		SourceTimeReferenceMessage strMessage;
+		memcpy(&strMessage, packetData, sizeof(SourceTimeReferenceMessage));
+		break;
+
+	case MessageType::QUOTE:
+		QuoteMessage qMessage;
+		memcpy(&qMessage, packetData, sizeof(QuoteMessage));
+		break;
+
+	case MessageType::ADD_ORDER:
+		AddOrderMessage aoMessage;
+		memcpy(&aoMessage, packetData, sizeof(AddOrderMessage));
+		break;
+
+	case MessageType::MODIFY_ORDER:
+		ModifyOrderMessage moMessage;
+		memcpy(&moMessage, packetData, sizeof(ModifyOrderMessage));
+		break;
+
+	case MessageType::DELETE_ORDER:
+		DeleteOrderMessage doMessage;
+		memcpy(&doMessage, packetData, sizeof(DeleteOrderMessage));
+		break;
+
+	case MessageType::REPLACE_ORDER:
+		ReplaceOrderMessage roMessage;
+		memcpy(&roMessage, packetData, sizeof(ReplaceOrderMessage));
+		break;
+
+	case MessageType::ORDER_EXECUTION:
+		OrderExecutionMessage oeMessage;
+		memcpy(&oeMessage, packetData, sizeof(OrderExecutionMessage));
+		break;
+
+	case MessageType::IMBALANCE:
+		ImbalanceMessage iMessage;
+		memcpy(&iMessage, packetData, sizeof(ImbalanceMessage));
+		break;
+		
+	case MessageType::ADD_ORDER_REFRESH:
+		AddOrderRefreshMessage aorMessage;
+		memcpy(&aorMessage, packetData, sizeof(AddOrderRefreshMessage));
+		break;
+
+	case MessageType::CROSS_TRADE:
+		CrossTradeMessage ctMessage;
+		memcpy(&ctMessage, packetData, sizeof(CrossTradeMessage));
+		break;
+
+	case MessageType::NON_DISPLAYED_TRADE:
+		NonDisplayedTradeMessage ndtMessage;
+		memcpy(&ndtMessage, packetData, sizeof(NonDisplayedTradeMessage));
+		break;
+
+	case MessageType::CROSS_CORRECTION:
+		CrossCorrectionMessage ccMessage;
+		memcpy(&ccMessage, packetData, sizeof(CrossCorrectionMessage));
+		break;
+
+	case MessageType::TRADE_CANCEL:
+		TradeCancelMessage tcMessage;
+		memcpy(&tcMessage, packetData, sizeof(TradeCancelMessage));
+		break;
+
+	case MessageType::RETAIL_IMPROVEMENT:
+		RetailImprovementMessage riMessage;
+		memcpy(&riMessage, packetData, sizeof(RetailImprovementMessage));
+		break;
+
+	default:
+		throw;
+	}
 }

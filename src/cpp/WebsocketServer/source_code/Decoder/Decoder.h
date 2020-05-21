@@ -39,6 +39,7 @@ private:
 	/*Symbol index to Symbol IndexMessage*/
 	std::unordered_map<uint32_t, SymbolIndexMappingMessage> symbolMap;
 	AmqpClient::Channel::ptr_t mqConnection;
+	void handleMessage(MessageType msgType, char packetData[]);
 
 public:
 	Decoder();

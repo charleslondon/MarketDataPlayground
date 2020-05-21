@@ -30,13 +30,25 @@ enum class MessageType : uint16_t
 	SYMBOL_CLEAR = 32,
 	SECURITY_STATUS = 34,
 	REFRESH_HEADER = 35,
+	ADD_ORDER = 100,
+	MODIFY_ORDER = 101,
+	DELETE_ORDER = 102,
+	ORDER_EXECUTION = 103,
+	REPLACE_ORDER = 104,
+	IMBALANCE = 105,
+	ADD_ORDER_REFRESH = 106,
+	NON_DISPLAYED_TRADE = 110,
+	CROSS_TRADE = 111,
+	TRADE_CANCEL = 112,
+	CROSS_CORRECTION = 113,
+	RETAIL_IMPROVEMENT = 114,
+	QUOTE = 140,
 	TRF_TRADE = 215,
 	TRF_TRADE_CANCEL = 216,
 	TRF_TRADE_CORRECTION = 217,
 	TRF_PRIOR_DAY_TRADE = 218,
 	TRF_PRIOR_DAY_TRADE_CANCEL = 219,
 	TRADE = 220,
-	TRADE_CANCEL = 221,
 	TRADE_CORRECTION = 222,
 	STOCK_SUMMARY = 223
 };
@@ -83,4 +95,68 @@ enum class ExchangeId : char
 	NASDAQ_OMX_PSX = 'X',
 	BATS_Y = 'Y',
 	BATS = 'Z'
+};
+
+enum class QuoteType : char
+{
+	CLOSING = 'C',
+	OPENING_QUOTE = 'O',
+	REGULAR_QUOTE = 'R',
+	SLOW_BID_ASK = 'W'
+};
+
+enum class RetailPriceIndicator : char
+{
+	DEFAULT = ' ',
+	RETAIL_BID = 'A',
+	RETAIL_OFFER = 'B',
+	RETAIL_BID_OFFER = 'C'
+};
+
+enum class TradeSide : char
+{
+	BUY = 'B',
+	SELL = 'S'
+};
+
+enum class BookPosition : uint8_t
+{
+	KEPT = 0,
+	LOST = 1
+};
+
+enum class Printable : uint8_t
+{
+	NOT_PRINTED = 0,
+	PRINTED = 1
+};
+
+enum class AuctionType : char
+{
+	EARLY_OPENING = 'O',
+	CORE_OPENING = 'M',
+	RE_OPENING = 'H',
+	CLOSING = 'C'
+};
+
+enum class AuctionStatus : uint8_t
+{
+	WILL_RUN_ALWAYS = 0,
+	WILL_RUN_CONDITIONALLY = 1,
+	WILL_NOT_RUN_IMBALANCE = 2,
+	WILL_NOT_RUN_CLOSING_AUCTION_INSTEAD = 3,
+};
+
+enum class FreezeStatus : uint8_t
+{
+	NOT_FROZEN = 0,
+	FROZEN = 1
+};
+
+enum class CrossType : char
+{
+	EARLY_OPENING = 'E',
+	OPENING = 'O',
+	RE_OPENING = '5',
+	CLOSING = '6'
 };

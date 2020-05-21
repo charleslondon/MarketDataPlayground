@@ -26,7 +26,7 @@ int main()
 
 	/*Additional setup for running locally*/
 	server.sin_family = AF_INET;
-	server.sin_port = htons(23030);
+	server.sin_port = htons(29024);
 	InetPtonW(AF_INET, (PCWSTR)INADDR_ANY, &server.sin_addr);
 
 	/*Bind the socket to a port.*/

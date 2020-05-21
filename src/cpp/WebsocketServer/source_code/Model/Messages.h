@@ -93,4 +93,172 @@ struct TradeMessage
 	char tradeCond3;
 	char tradeCond4;
 };
+
+struct SourceTimeReferenceMessage
+{
+	uint32_t id;
+	uint32_t symbolSequenceNum;
+	uint32_t sourceTime;
+};
+
+struct QuoteMessage
+{
+	uint32_t SourcetimeNs;
+	uint32_t SymbolIndex;
+	uint32_t SymbolSequenceNum;
+	uint32_t askPrice;
+	uint32_t askVolume;
+	uint32_t bidPrice;
+	uint32_t bidVolume;
+	QuoteType quoteCondition;
+	RetailPriceIndicator rpiIndicator;
+};
+
+struct AddOrderMessage
+{
+	uint32_t sourceTimeNs;
+	uint32_t symbolIndex;
+	uint32_t symbolSequenceNum;
+	uint64_t orderId;
+	uint32_t price;
+	uint32_t volume;
+	TradeSide side;
+	char firmId[5];
+	uint8_t numParitySplits;
+};
+
+struct ModifyOrderMessage
+{
+	uint32_t sourceTimeNs;
+	uint32_t symbolIndex;
+	uint32_t symbolSequenceNum;
+	uint64_t orderId;
+	uint32_t price;
+	uint32_t volume;
+	BookPosition positionChange;
+	uint8_t prevPriceParitySplits;
+	uint8_t newPriceParitySplits;
+};
+
+struct DeleteOrderMessage
+{
+	uint32_t sourceTimeNs;
+	uint32_t symbolIndex;
+	uint32_t symbolSequenceNum;
+	uint64_t orderId;
+	uint8_t numParitySplits;
+};
+
+struct ReplaceOrderMessage
+{
+	uint32_t sourceTimeNs;
+	uint32_t symbolIndex;
+	uint32_t symbolSequenceNum;
+	uint64_t orderId;
+	uint64_t newOrderId;
+	uint32_t price;
+	uint32_t volume;
+	uint8_t prevPriceParitySplits;
+	uint8_t newPriceParitySplits;
+};
+
+struct OrderExecutionMessage
+{
+	uint32_t sourceTimeNs;
+	uint32_t symbolIndex;
+	uint32_t symbolSequenceNum;
+	uint64_t orderId;
+	uint32_t tradeId;
+	uint32_t price;
+	uint32_t volume;
+	Printable printableFlag;
+	uint8_t numParitySplits;
+	uint32_t dbExecId;
+};
+
+struct AddOrderRefreshMessage
+{
+	uint32_t sourceTime;
+	uint32_t sourceTimeNs;
+	uint32_t symbolIndex;
+	uint32_t symbolSeqNum;
+	uint64_t orderId;
+	uint32_t price;
+	uint32_t volume;
+	TradeSide side;
+	char firmId[5];
+	uint8_t numParitySplits;
+};
+
+struct ImbalanceMessage
+{
+	uint32_t sourceTime;
+	uint32_t sourceTimeNs;
+	uint32_t symbolIndex;
+	uint32_t symbolSequenceNum;
+	uint32_t referencePrice;
+	uint32_t pairedQty;
+	uint32_t totalImbalanceQty;
+	uint32_t marketImbalanceQty;
+	uint16_t auctionTime;
+	AuctionType auctionType;
+	TradeSide imbalanceSide;
+	uint32_t continuousBookClearingPrice;
+	uint32_t closingOnlyClearingPrice;
+	uint32_t ssrFilingPrice;
+	uint32_t indicativeMatchPrice;
+	uint32_t upperCollar;
+	uint32_t lowerCollar;
+	AuctionStatus auctionStatus;
+	FreezeStatus freezeStatus;
+	uint8_t numExtensions;
+};
+
+struct NonDisplayedTradeMessage
+{
+	uint32_t sourceTimeNs;
+	uint32_t symbolIndex;
+	uint32_t symbolSeqNum;
+	uint32_t tradeId;
+	uint32_t price;
+	uint32_t volume;
+	Printable printableFlag;
+	uint32_t dbExecId;
+};
+
+struct CrossTradeMessage
+{
+	uint32_t sourceTimeNs;
+	uint32_t symbolIndex;
+	uint32_t symbolSeqNum;
+	uint32_t crossId;
+	uint32_t price;
+	uint32_t volume;
+	CrossType crossType;
+};
+
+struct CrossCorrectionMessage
+{
+	uint32_t sourceTimeNs;
+	uint32_t symbolIndex;
+	uint32_t symbolSeqNum;
+	uint32_t crossId;
+	uint32_t volume;
+};
+
+struct TradeCancelMessage
+{
+	uint32_t sourceTimeNs;
+	uint32_t symbolIndex;
+	uint32_t symbolSeqNum;
+	uint32_t tradeId;
+};
+
+struct RetailImprovementMessage
+{
+	uint32_t sourceTimeNs;
+	uint32_t symbolIndex;
+	uint32_t symbolSeqNum;
+	RetailPriceIndicator rpiIndicator;
+};
 #pragma pack(pop)
