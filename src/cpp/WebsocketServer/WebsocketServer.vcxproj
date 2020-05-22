@@ -86,6 +86,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir)source_code;C:\local\simple-amqp-client_2_4_0\include;C:\local\rabbitmq-c_3_8_3\include;C:\local\boost_1_67_0</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>
       </AdditionalUsingDirectories>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -133,6 +134,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir)source_code;C:\local\simple-amqp-client_2_4_0\include;C:\local\rabbitmq-c_3_8_3\include;C:\local\boost_1_67_0</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>
       </AdditionalUsingDirectories>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -148,6 +150,7 @@
     <ClCompile Include="source_code\Websocket\Client.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source_code\Decoder\MessageHandler.h" />
     <ClInclude Include="source_code\Model\Enums.h" />
     <ClInclude Include="source_code\Decoder\Decoder.h" />
     <ClInclude Include="source_code\Model\Messages.h" />

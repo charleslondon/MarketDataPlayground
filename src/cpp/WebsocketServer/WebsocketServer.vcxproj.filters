@@ -32,5 +32,8 @@
     <ClInclude Include="source_code\Decoder\Decoder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="source_code\Decoder\MessageHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
