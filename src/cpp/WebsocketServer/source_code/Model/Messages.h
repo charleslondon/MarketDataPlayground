@@ -18,13 +18,6 @@ struct XdpMessageHeader
 	MessageType msgType;
 };
 
-struct OrderTradeId
-{
-	uint8_t systemId;
-	MarketId marketId;
-	uint32_t orderTradeId;
-};
-
 namespace Message
 {
 	struct SequenceNumberReset

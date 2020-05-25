@@ -43,8 +43,8 @@ void Decoder::handleTrade(char packetData[]) const
 		trade->sourceTimeNs);
 
 	mqConnection->BasicPublish(
-		"TEST",		/*The Default Exchange*/
-		"key",	/*Using the stock ticker as our routing key*/
+		"TEST",	/*The Default Exchange*/
+		"key",	/*TODO use the stock ticker as our routing key*/
 		AmqpClient::BasicMessage::Create(message.serialize()));
 }
 
