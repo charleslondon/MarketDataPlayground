@@ -25,240 +25,243 @@ struct OrderTradeId
 	uint32_t orderTradeId;
 };
 
-struct SequenceNumberResetMessage
+namespace Message
 {
-	uint32_t sourceTime;
-	uint32_t sourceTimeNs;
-	uint8_t productId;
-	uint8_t channelId;
-};
+	struct SequenceNumberReset
+	{
+		uint32_t sourceTime;
+		uint32_t sourceTimeNs;
+		uint8_t productId;
+		uint8_t channelId;
+	};
 
-struct SymbolIndexMappingMessage
-{
-	uint32_t symbolIndex;
-	char symbol[11];
-	uint8_t reserved1;
-	MarketId marketId;
-	uint8_t systemId;
-	char exchangeCode;
-	uint8_t priceScaleCode;
-	char securityType;
-	uint16_t lotSize;
-	uint32_t prevClosePrice;
-	uint32_t prevCloseVolume;
-	char roundLot;
-	uint16_t mpv;
-	uint16_t unitOfTrade;
-	uint16_t reserved2;
-};
+	struct SymbolIndexMapping
+	{
+		uint32_t symbolIndex;
+		char symbol[11];
+		uint8_t reserved1;
+		MarketId marketId;
+		uint8_t systemId;
+		char exchangeCode;
+		uint8_t priceScaleCode;
+		char securityType;
+		uint16_t lotSize;
+		uint32_t prevClosePrice;
+		uint32_t prevCloseVolume;
+		char roundLot;
+		uint16_t mpv;
+		uint16_t unitOfTrade;
+		uint16_t reserved2;
+	};
 
-struct SymbolClearMessage
-{
-	uint32_t sourceTime;
-	uint32_t sourceTimeNs;
-	uint32_t symbolIndex;
-	uint32_t nextSourceSeqNum;
-};
+	struct SymbolClear
+	{
+		uint32_t sourceTime;
+		uint32_t sourceTimeNs;
+		uint32_t symbolIndex;
+		uint32_t nextSourceSeqNum;
+	};
 
-struct SecurityStatusMessage
-{
-	uint32_t sourceTime;
-	uint32_t sourceTimeNs;
-	uint32_t symbolIndex;
-	uint32_t symbolSeqNum;
-	char securityStatus;
-	char haltCondition;
-	uint32_t reserved;
-	uint32_t price1;
-	uint32_t price2;
-	ExchangeId ssrTriggeringExchangeId;
-	uint32_t ssrTriggeringVolume;
-	uint32_t time;
-	char ssrState;
-	SecurityMarketStatus marketState;
-	char sessionState;
-};
+	struct SecurityStatus
+	{
+		uint32_t sourceTime;
+		uint32_t sourceTimeNs;
+		uint32_t symbolIndex;
+		uint32_t symbolSeqNum;
+		char securityStatus;
+		char haltCondition;
+		uint32_t reserved;
+		uint32_t price1;
+		uint32_t price2;
+		ExchangeId ssrTriggeringExchangeId;
+		uint32_t ssrTriggeringVolume;
+		uint32_t time;
+		char ssrState;
+		SecurityMarketStatus marketState;
+		char sessionState;
+	};
 
-struct TradeMessage
-{
-	uint32_t sourceTime;
-	uint32_t sourceTimeNs;
-	uint32_t symbolIndex;
-	uint32_t symbolSequenceNum;
-	uint32_t tradeId;
-	uint32_t price;
-	uint32_t volume;
-	char tradeCond1;
-	char tradeCond2;
-	char tradeCond3;
-	char tradeCond4;
-};
+	struct Trade
+	{
+		uint32_t sourceTime;
+		uint32_t sourceTimeNs;
+		uint32_t symbolIndex;
+		uint32_t symbolSequenceNum;
+		uint32_t tradeId;
+		uint32_t price;
+		uint32_t volume;
+		char tradeCond1;
+		char tradeCond2;
+		char tradeCond3;
+		char tradeCond4;
+	};
 
-struct SourceTimeReferenceMessage
-{
-	uint32_t id;
-	uint32_t symbolSequenceNum;
-	uint32_t sourceTime;
-};
+	struct SourceTimeReference
+	{
+		uint32_t id;
+		uint32_t symbolSequenceNum;
+		uint32_t sourceTime;
+	};
 
-struct QuoteMessage
-{
-	uint32_t SourcetimeNs;
-	uint32_t SymbolIndex;
-	uint32_t SymbolSequenceNum;
-	uint32_t askPrice;
-	uint32_t askVolume;
-	uint32_t bidPrice;
-	uint32_t bidVolume;
-	QuoteType quoteCondition;
-	RetailPriceIndicator rpiIndicator;
-};
+	struct Quote
+	{
+		uint32_t SourcetimeNs;
+		uint32_t SymbolIndex;
+		uint32_t SymbolSequenceNum;
+		uint32_t askPrice;
+		uint32_t askVolume;
+		uint32_t bidPrice;
+		uint32_t bidVolume;
+		QuoteType quoteCondition;
+		RetailPriceIndicator rpiIndicator;
+	};
 
-struct AddOrderMessage
-{
-	uint32_t sourceTimeNs;
-	uint32_t symbolIndex;
-	uint32_t symbolSequenceNum;
-	uint64_t orderId;
-	uint32_t price;
-	uint32_t volume;
-	TradeSide side;
-	char firmId[5];
-	uint8_t numParitySplits;
-};
+	struct AddOrder
+	{
+		uint32_t sourceTimeNs;
+		uint32_t symbolIndex;
+		uint32_t symbolSequenceNum;
+		uint64_t orderId;
+		uint32_t price;
+		uint32_t volume;
+		TradeSide side;
+		char firmId[5];
+		uint8_t numParitySplits;
+	};
 
-struct ModifyOrderMessage
-{
-	uint32_t sourceTimeNs;
-	uint32_t symbolIndex;
-	uint32_t symbolSequenceNum;
-	uint64_t orderId;
-	uint32_t price;
-	uint32_t volume;
-	BookPosition positionChange;
-	uint8_t prevPriceParitySplits;
-	uint8_t newPriceParitySplits;
-};
+	struct ModifyOrder
+	{
+		uint32_t sourceTimeNs;
+		uint32_t symbolIndex;
+		uint32_t symbolSequenceNum;
+		uint64_t orderId;
+		uint32_t price;
+		uint32_t volume;
+		BookPosition positionChange;
+		uint8_t prevPriceParitySplits;
+		uint8_t newPriceParitySplits;
+	};
 
-struct DeleteOrderMessage
-{
-	uint32_t sourceTimeNs;
-	uint32_t symbolIndex;
-	uint32_t symbolSequenceNum;
-	uint64_t orderId;
-	uint8_t numParitySplits;
-};
+	struct DeleteOrder
+	{
+		uint32_t sourceTimeNs;
+		uint32_t symbolIndex;
+		uint32_t symbolSequenceNum;
+		uint64_t orderId;
+		uint8_t numParitySplits;
+	};
 
-struct ReplaceOrderMessage
-{
-	uint32_t sourceTimeNs;
-	uint32_t symbolIndex;
-	uint32_t symbolSequenceNum;
-	uint64_t orderId;
-	uint64_t newOrderId;
-	uint32_t price;
-	uint32_t volume;
-	uint8_t prevPriceParitySplits;
-	uint8_t newPriceParitySplits;
-};
+	struct ReplaceOrder
+	{
+		uint32_t sourceTimeNs;
+		uint32_t symbolIndex;
+		uint32_t symbolSequenceNum;
+		uint64_t orderId;
+		uint64_t newOrderId;
+		uint32_t price;
+		uint32_t volume;
+		uint8_t prevPriceParitySplits;
+		uint8_t newPriceParitySplits;
+	};
 
-struct OrderExecutionMessage
-{
-	uint32_t sourceTimeNs;
-	uint32_t symbolIndex;
-	uint32_t symbolSequenceNum;
-	uint64_t orderId;
-	uint32_t tradeId;
-	uint32_t price;
-	uint32_t volume;
-	Printable printableFlag;
-	uint8_t numParitySplits;
-	uint32_t dbExecId;
-};
+	struct OrderExecution
+	{
+		uint32_t sourceTimeNs;
+		uint32_t symbolIndex;
+		uint32_t symbolSequenceNum;
+		uint64_t orderId;
+		uint32_t tradeId;
+		uint32_t price;
+		uint32_t volume;
+		Printable printableFlag;
+		uint8_t numParitySplits;
+		uint32_t dbExecId;
+	};
 
-struct AddOrderRefreshMessage
-{
-	uint32_t sourceTime;
-	uint32_t sourceTimeNs;
-	uint32_t symbolIndex;
-	uint32_t symbolSeqNum;
-	uint64_t orderId;
-	uint32_t price;
-	uint32_t volume;
-	TradeSide side;
-	char firmId[5];
-	uint8_t numParitySplits;
-};
+	struct AddOrderRefresh
+	{
+		uint32_t sourceTime;
+		uint32_t sourceTimeNs;
+		uint32_t symbolIndex;
+		uint32_t symbolSeqNum;
+		uint64_t orderId;
+		uint32_t price;
+		uint32_t volume;
+		TradeSide side;
+		char firmId[5];
+		uint8_t numParitySplits;
+	};
 
-struct ImbalanceMessage
-{
-	uint32_t sourceTime;
-	uint32_t sourceTimeNs;
-	uint32_t symbolIndex;
-	uint32_t symbolSequenceNum;
-	uint32_t referencePrice;
-	uint32_t pairedQty;
-	uint32_t totalImbalanceQty;
-	uint32_t marketImbalanceQty;
-	uint16_t auctionTime;
-	AuctionType auctionType;
-	TradeSide imbalanceSide;
-	uint32_t continuousBookClearingPrice;
-	uint32_t closingOnlyClearingPrice;
-	uint32_t ssrFilingPrice;
-	uint32_t indicativeMatchPrice;
-	uint32_t upperCollar;
-	uint32_t lowerCollar;
-	AuctionStatus auctionStatus;
-	FreezeStatus freezeStatus;
-	uint8_t numExtensions;
-};
+	struct Imbalance
+	{
+		uint32_t sourceTime;
+		uint32_t sourceTimeNs;
+		uint32_t symbolIndex;
+		uint32_t symbolSequenceNum;
+		uint32_t referencePrice;
+		uint32_t pairedQty;
+		uint32_t totalImbalanceQty;
+		uint32_t marketImbalanceQty;
+		uint16_t auctionTime;
+		AuctionType auctionType;
+		TradeSide imbalanceSide;
+		uint32_t continuousBookClearingPrice;
+		uint32_t closingOnlyClearingPrice;
+		uint32_t ssrFilingPrice;
+		uint32_t indicativeMatchPrice;
+		uint32_t upperCollar;
+		uint32_t lowerCollar;
+		AuctionStatus auctionStatus;
+		FreezeStatus freezeStatus;
+		uint8_t numExtensions;
+	};
 
-struct NonDisplayedTradeMessage
-{
-	uint32_t sourceTimeNs;
-	uint32_t symbolIndex;
-	uint32_t symbolSeqNum;
-	uint32_t tradeId;
-	uint32_t price;
-	uint32_t volume;
-	Printable printableFlag;
-	uint32_t dbExecId;
-};
+	struct NonDisplayedTrade
+	{
+		uint32_t sourceTimeNs;
+		uint32_t symbolIndex;
+		uint32_t symbolSeqNum;
+		uint32_t tradeId;
+		uint32_t price;
+		uint32_t volume;
+		Printable printableFlag;
+		uint32_t dbExecId;
+	};
 
-struct CrossTradeMessage
-{
-	uint32_t sourceTimeNs;
-	uint32_t symbolIndex;
-	uint32_t symbolSeqNum;
-	uint32_t crossId;
-	uint32_t price;
-	uint32_t volume;
-	CrossType crossType;
-};
+	struct CrossTrade
+	{
+		uint32_t sourceTimeNs;
+		uint32_t symbolIndex;
+		uint32_t symbolSeqNum;
+		uint32_t crossId;
+		uint32_t price;
+		uint32_t volume;
+		CrossType crossType;
+	};
 
-struct CrossCorrectionMessage
-{
-	uint32_t sourceTimeNs;
-	uint32_t symbolIndex;
-	uint32_t symbolSeqNum;
-	uint32_t crossId;
-	uint32_t volume;
-};
+	struct CrossCorrection
+	{
+		uint32_t sourceTimeNs;
+		uint32_t symbolIndex;
+		uint32_t symbolSeqNum;
+		uint32_t crossId;
+		uint32_t volume;
+	};
 
-struct TradeCancelMessage
-{
-	uint32_t sourceTimeNs;
-	uint32_t symbolIndex;
-	uint32_t symbolSeqNum;
-	uint32_t tradeId;
-};
+	struct TradeCancel
+	{
+		uint32_t sourceTimeNs;
+		uint32_t symbolIndex;
+		uint32_t symbolSeqNum;
+		uint32_t tradeId;
+	};
 
-struct RetailImprovementMessage
-{
-	uint32_t sourceTimeNs;
-	uint32_t symbolIndex;
-	uint32_t symbolSeqNum;
-	RetailPriceIndicator rpiIndicator;
-};
+	struct RetailImprovement
+	{
+		uint32_t sourceTimeNs;
+		uint32_t symbolIndex;
+		uint32_t symbolSeqNum;
+		RetailPriceIndicator rpiIndicator;
+	};
+}
 #pragma pack(pop)

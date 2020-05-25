@@ -41,25 +41,30 @@ class Decoder
 private: /*Members*/
 	/*Symbol index to Symbol IndexMessage*/
 	std::set<MessageType> unhandledMessages;
-	std::unordered_map<MessageType, std::function<void(char[])>> messageHandlerMap;
-	std::unordered_map<uint32_t, SymbolIndexMappingMessage> symbolMap;
+	std::unordered_map<MessageType, std::function<void(char[])>> msgHandlerMap;
+	std::unordered_map<uint32_t, std::shared_ptr<Message::SymbolIndexMapping>> symbolMap;
 	AmqpClient::Channel::ptr_t mqConnection;
 
-private: /*Functions*/
-	void handleMessage(MessageType msgType, char packetData[]);
 
 public: /*Functions*/
 	Decoder();
 	void decodePacket(char packetData[], const int packetSize);
 	
-private: /*Functions*/
-	void popuateSymbolIndexMap(const SymbolIndexMappingMessage& message);
-	void clearSymbolIndexMap();
-	void updateOrderBook(const TradeMessage& trade);
-	void populateMessageMap();
 
-	void handleTrade(char packetData[]);
-	void handleTradeSequenceNumberReset(char packetData[]);
+private: /*Functions*/
+	void populateMessageHandlerMap();
+	void handleMessage(MessageType msgType, char packetData[]);
+
+	template<typename M>
+	std::shared_ptr<M> loadMessage(char packetData[]) const
+	{
+		M message;
+		memcpy(&message, packetData, sizeof(M));
+		return std::make_shared<M>(message);
+	}
+
+	void handleTrade(char packetData[]) const;
+	void handleSequenceNumberReset(char packetData[]);
 	void handleSymbolIndexMapping(char packetData[]);
 	void handleSymbolClear(char packetData[]);
 	void handleSecurityStatus(char packetData[]);
