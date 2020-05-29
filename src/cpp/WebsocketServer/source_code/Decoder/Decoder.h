@@ -6,7 +6,6 @@
 #include <functional>
 #include <set>
 #include "Model/Messages.h"
-#include "MessageHandler.h"
 
 struct SymbolMessage
 {
@@ -49,7 +48,6 @@ private: /*Members*/
 public: /*Functions*/
 	Decoder();
 	void decodePacket(char packetData[], const int packetSize);
-	
 
 private: /*Functions*/
 	void populateMessageHandlerMap();
@@ -59,27 +57,11 @@ private: /*Functions*/
 	std::shared_ptr<M> loadMessage(char packetData[]) const
 	{
 		M message;
-		memcpy(&message, packetData, sizeof(M));
+		std::memcpy(&message, packetData, sizeof(M));
 		return std::make_shared<M>(message);
 	}
 
-	void handleTrade(char packetData[]) const;
-	void handleSequenceNumberReset(char packetData[]);
-	void handleSymbolIndexMapping(char packetData[]);
-	void handleSymbolClear(char packetData[]);
-	void handleSecurityStatus(char packetData[]);
-	void handleSourceTimeReference(char packetData[]);
-	void handleQuote(char packetData[]);
-	void handleAddOrder(char packetData[]);
-	void handleModifyOrder(char packetData[]);
-	void handleDeleteOrder(char packetData[]);
-	void handleReplaceOrder(char packetData[]);
-	void handleTradeCancel(char packetData[]);
-	void handleOrderExecution(char packetData[]);
-	void handleImbalance(char packetData[]);
-	void handleAddOrderRefresh(char packetData[]);
-	void handleCrossTrade(char packetData[]);
-	void handleNonDisplayedTrade(char packetData[]);
-	void handleCrossCorrection(char packetData[]);
-	void handleRetailImprovement(char packetData[]);
+	void handleTrade(const std::shared_ptr<Message::Trade> msg) const;
+	void handleSymbolIndexMapping(const std::shared_ptr<Message::SymbolIndexMapping> msg);
+	void handleSymbolClear(const std::shared_ptr<Message::SymbolClear> msg);
 };
