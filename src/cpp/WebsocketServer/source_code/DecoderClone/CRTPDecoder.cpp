@@ -6,11 +6,9 @@
 
 CRTPDecoder::CRTPDecoder() 
 {
-	Context c = Context();
-
-	handlers.emplace(Trade::MsgType, std::make_shared<CMessageHandler<Trade>>(c));
-	handlers.emplace(SymbolIndexMapping::MsgType, std::make_shared<CMessageHandler<SymbolIndexMapping>>(c));
-	handlers.emplace(SymbolClear::MsgType, std::make_shared<CMessageHandler<SymbolClear>>(c));
+	handlers.emplace(Trade::MsgType, std::make_shared<CMessageHandler<Trade>>());
+	handlers.emplace(SymbolIndexMapping::MsgType, std::make_shared<CMessageHandler<SymbolIndexMapping>>());
+	handlers.emplace(SymbolClear::MsgType, std::make_shared<CMessageHandler<SymbolClear>>());
 }
 
 void CRTPDecoder::decodePacket(char packetData[], const int packetSize)

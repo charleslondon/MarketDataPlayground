@@ -21,7 +21,9 @@ protected:
 	{
 		try
 		{
-			context.symbolMap.insert(std::pair(msg.symbolIndex, msg));
+			auto c = Context::getInstance();
+
+			c->getSymbolMap()->insert(std::pair(msg.symbolIndex, msg));
 		}
 		catch (...)
 		{

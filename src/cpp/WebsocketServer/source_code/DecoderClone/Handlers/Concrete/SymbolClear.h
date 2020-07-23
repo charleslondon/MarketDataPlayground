@@ -25,9 +25,11 @@ private:
 protected:
 	bool handleMessage(Message msg)
 	{
+		auto c = Context::getInstance();
+
 		try
 		{
-			context.symbolMap.erase(msg.symbolIndex);
+			c->getSymbolMap()->erase(msg.symbolIndex);
 		}
 		catch (...)
 		{

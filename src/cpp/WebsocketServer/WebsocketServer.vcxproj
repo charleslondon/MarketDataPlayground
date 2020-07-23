@@ -146,6 +146,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source_code\DecoderClone\Context.cpp" />
     <ClCompile Include="source_code\DecoderClone\CRTPDecoder.cpp" />
     <ClCompile Include="source_code\Decoder\Decoder.cpp" />
     <ClCompile Include="source_code\Driver\Application.cpp" />
@@ -159,7 +160,6 @@
     <ClInclude Include="source_code\DecoderClone\Handlers\Concrete\SymbolClear.h" />
     <ClInclude Include="source_code\DecoderClone\Handlers\Concrete\SymbolIndexMapping.h" />
     <ClInclude Include="source_code\DecoderClone\Handlers\Concrete\Trade.h" />
-    <ClInclude Include="source_code\DecoderClone\SymbolInfo.h" />
     <ClInclude Include="source_code\Model\Enums.h" />
     <ClInclude Include="source_code\Decoder\Decoder.h" />
     <ClInclude Include="source_code\Model\Messages.h" />

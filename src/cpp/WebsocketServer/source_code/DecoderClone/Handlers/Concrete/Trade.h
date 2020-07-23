@@ -33,10 +33,12 @@ private:
 protected:
 	bool handleMessage(Message msg)
 	{
+		auto c = Context::getInstance();
+
 		try
 		{
-			auto search = context.symbolMap.find(msg.symbolIndex);
-			if (search != context.symbolMap.end())
+			auto search = c->getSymbolMap()->find(msg.symbolIndex);
+			if (search != c->getSymbolMap()->end())
 			{
 				auto mapping = search->second;
 
@@ -46,7 +48,7 @@ protected:
 					msg.sourceTime,
 					msg.sourceTimeNs);
 
-				context.mqConnection->BasicPublish(
+				c->getConnection()->BasicPublish(
 					"TEST",	/*The Default Exchange*/
 					"key",	/*TODO use the stock ticker as our routing key*/
 					AmqpClient::BasicMessage::Create(message.serialize()));

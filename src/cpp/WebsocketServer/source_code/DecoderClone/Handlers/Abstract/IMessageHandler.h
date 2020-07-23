@@ -15,15 +15,10 @@ template<typename Handler>
 class CMessageHandler : public IMessageHandler
 {
 public:
-	using Message = typename traits<Handler>::Message;
+	using Message = typename traits<Handler>::Message;	
 	
-	CMessageHandler(Context c) :
-		context(c) {}
+	CMessageHandler() {}
 
-protected:
-	Context context;
-
-public:
 	bool handleMessage(char* packetData)
 	{
 		Message message;
