@@ -8,6 +8,11 @@ Decoder::Decoder() :
 	populateMessageHandlerMap();
 }
 
+/*
+	Just a crummy re-implementation of a vtable, but it's prettier than having a massive switch statement,
+	may come back to this with dynamic double dispatch or if performance loss is too great some kind of 
+	CRTP non-sense
+*/
 void Decoder::populateMessageHandlerMap()
 {
 	msgHandlerMap.emplace(MessageType::TRADE, [=](char packetData[]) { 
@@ -22,18 +27,22 @@ void Decoder::populateMessageHandlerMap()
 
 void Decoder::handleTrade(const std::shared_ptr<Message::Trade> msg) const
 {
-	auto mapping = symbolMap.at(msg->symbolIndex);
+	auto search = symbolMap.find(msg->symbolIndex);
+	if (search != symbolMap.end())
+	{
+		auto mapping = search->second;
 
-	auto message = SymbolMessage(
-		mapping->symbol,
-		msg->price / pow(10, mapping->priceScaleCode),
-		msg->sourceTime,
-		msg->sourceTimeNs);
+		auto message = SymbolMessage(
+			mapping->symbol,
+			msg->price / pow(10, mapping->priceScaleCode),
+			msg->sourceTime,
+			msg->sourceTimeNs);
 
-	mqConnection->BasicPublish(
-		"TEST",	/*The Default Exchange*/
-		"key",	/*TODO use the stock ticker as our routing key*/
-		AmqpClient::BasicMessage::Create(message.serialize()));
+		mqConnection->BasicPublish(
+			"TEST",	/*The Default Exchange*/
+			"key",	/*TODO use the stock ticker as our routing key*/
+			AmqpClient::BasicMessage::Create(message.serialize()));
+	}
 }
 
 void Decoder::handleSymbolIndexMapping(const std::shared_ptr<Message::SymbolIndexMapping> msg)
@@ -43,7 +52,7 @@ void Decoder::handleSymbolIndexMapping(const std::shared_ptr<Message::SymbolInde
 
 void Decoder::handleSymbolClear(const std::shared_ptr<Message::SymbolClear> msg)
 {
-	symbolMap.erase(msg->symbolIndex);
+	//symbolMap.erase(msg->symbolIndex);
 }
 
 void Decoder::decodePacket(char packetData[], const int packetSize)
@@ -69,13 +78,8 @@ void Decoder::handleMessage(MessageType msgType, char packetData[])
 	{
 		search->second(packetData);
 	}
-	else
+	else if (unhandledMessages.insert(msgType).second)
 	{
-		bool wasInserted = unhandledMessages.insert(msgType).second;
-
-		if (wasInserted)
-		{
-			std::cout << "Unhandled Message Encountered: Message_Type " << static_cast<int>(msgType) << std::endl;
-		}
+		std::cout << "Unhandled Message Encountered: Message_Type " << static_cast<int>(msgType) << std::endl;
 	}
 }

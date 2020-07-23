@@ -8,10 +8,12 @@
 class Client
 {
 private: /*Members*/
+	static constexpr int PORT_NUMBER = 29024;
+	static constexpr int MAX_PACKET_SIZE = 1400;
+
 	struct sockaddr_in server;
 	WSAData data;
 	SOCKET sock;
-	static constexpr int MAX_PACKET_SIZE = 1400;
 	char buffer[MAX_PACKET_SIZE];
 	std::shared_ptr<Decoder> decoder = std::make_shared<Decoder>();
 

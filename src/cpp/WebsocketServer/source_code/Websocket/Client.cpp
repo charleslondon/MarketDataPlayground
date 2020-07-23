@@ -11,7 +11,7 @@ void Client::run()
 		memset(buffer, '\0', MAX_PACKET_SIZE);
 
 		/*RecvFrom is a blocking call, will wait here for the next packet*/
-		if (recvfrom(sock, buffer, MAX_PACKET_SIZE, 0, (struct sockaddr*) & si_other, &slen) != SOCKET_ERROR)
+		if (recvfrom(sock, buffer, MAX_PACKET_SIZE, 0, (struct sockaddr*)& si_other, &slen) != SOCKET_ERROR)
 		{
 			decoder->decodePacket(buffer, slen);
 		}
@@ -41,7 +41,7 @@ Client::Client()
 
 	/*Additional setup for running locally*/
 	server.sin_family = AF_INET;
-	server.sin_port = htons(29024);
+	server.sin_port = htons(PORT_NUMBER);
 	InetPtonW(AF_INET, (PCWSTR)INADDR_ANY, &server.sin_addr);
 
 	/*Bind the socket to a port.*/
