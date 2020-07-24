@@ -4,15 +4,16 @@
 #include <unordered_map>
 #include "Model/Messages.h"
 #include "Model/Enums.h"
-#include "DecoderClone/Handlers/Abstract/IMessageHandler.h"
+#include "DecoderClone/Handlers/MessageHandlerThread.h"
 
-class CRTPDecoder 
+class CRTPDecoder
 {
 private:
 	std::set<MessageType> unhandledMessages;
-	std::unordered_map<MessageType, std::shared_ptr<IMessageHandler>> handlers;
+	std::unordered_map<MessageType, std::unique_ptr<MessageHandlerThread>> handlers;
 
 public:
 	CRTPDecoder();
-	void decodePacket(char packetData[], const int packetSize);
+	void decodePacket(char* packetData, const int packetSize);
+	void decodeMessage(MessageType msgType, char* packetData);
 };

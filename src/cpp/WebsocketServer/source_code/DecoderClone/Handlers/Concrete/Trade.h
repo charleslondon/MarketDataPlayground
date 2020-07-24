@@ -33,10 +33,9 @@ private:
 protected:
 	bool handleMessage(Message msg)
 	{
-		auto c = Context::getInstance();
-
 		try
 		{
+			auto c = Context::getInstance();
 			auto search = c->getSymbolMap()->find(msg.symbolIndex);
 			if (search != c->getSymbolMap()->end())
 			{

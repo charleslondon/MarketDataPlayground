@@ -154,6 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source_code\DecoderClone\CRTPDecoder.h" />
+    <ClInclude Include="source_code\DecoderClone\Handlers\MessageHandlerThread.h" />
     <ClInclude Include="source_code\DecoderClone\IPC_SymbolMessage.h" />
     <ClInclude Include="source_code\DecoderClone\Context.h" />
     <ClInclude Include="source_code\DecoderClone\Handlers\Abstract\IMessageHandler.h" />

@@ -5,7 +5,24 @@
 template<>
 struct traits<class SymbolIndexMapping>
 {
-	using Message = Message::SymbolIndexMapping;
+	struct Message
+	{
+		uint32_t symbolIndex;
+		char symbol[11];
+		uint8_t reserved1;
+		MarketId marketId;
+		uint8_t systemId;
+		char exchangeCode;
+		uint8_t priceScaleCode;
+		char securityType;
+		uint16_t lotSize;
+		uint32_t prevClosePrice;
+		uint32_t prevCloseVolume;
+		char roundLot;
+		uint16_t mpv;
+		uint16_t unitOfTrade;
+		uint16_t reserved2;
+	};
 };
 
 class SymbolIndexMapping : public CMessageHandler<SymbolIndexMapping>
@@ -22,8 +39,7 @@ protected:
 		try
 		{
 			auto c = Context::getInstance();
-
-			c->getSymbolMap()->insert(std::pair(msg.symbolIndex, msg));
+			//c->getSymbolMap()->insert(std::pair(msg.symbolIndex, msg));
 		}
 		catch (...)
 		{

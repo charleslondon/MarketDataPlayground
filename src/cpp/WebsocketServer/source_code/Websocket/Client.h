@@ -5,6 +5,7 @@
 #include <memory>
 #include "Decoder/Decoder.h"
 
+
 class Client
 {
 private: /*Members*/

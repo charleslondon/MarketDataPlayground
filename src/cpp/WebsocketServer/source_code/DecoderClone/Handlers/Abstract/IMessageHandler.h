@@ -1,6 +1,7 @@
 #pragma once
 #include <cstdint>
 #include "DecoderClone/Context.h"
+#include "Model/Messages.h"
 
 template<typename>
 struct traits;
@@ -15,14 +16,19 @@ template<typename Handler>
 class CMessageHandler : public IMessageHandler
 {
 public:
-	using Message = typename traits<Handler>::Message;	
-	
+	using Message = typename traits<Handler>::Message;
+
 	CMessageHandler() {}
 
-	bool handleMessage(char* packetData)
+	static Message createMessage(char packetData[])
 	{
 		Message message;
 		std::memcpy(&message, packetData, sizeof(Message));
-		return static_cast<Handler*>(this)->handleMessage(message);
+		return message;
+	}
+
+	bool handleMessage(char* packetData)
+	{
+		return static_cast<Handler*>(this)->handleMessage(createMessage(packetData));
 	}
 };

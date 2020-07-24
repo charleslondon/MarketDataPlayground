@@ -10,19 +10,19 @@ Decoder::Decoder() :
 
 /*
 	Just a crummy re-implementation of a vtable, but it's prettier than having a massive switch statement,
-	may come back to this with dynamic double dispatch or if performance loss is too great some kind of 
+	may come back to this with dynamic double dispatch or if performance loss is too great some kind of
 	CRTP non-sense
 */
 void Decoder::populateMessageHandlerMap()
 {
-	msgHandlerMap.emplace(MessageType::TRADE, [=](char packetData[]) { 
-			this->handleTrade(loadMessage<Message::Trade>(packetData)); });
+	msgHandlerMap.emplace(MessageType::TRADE, [=](char packetData[]) {
+		this->handleTrade(loadMessage<Message::Trade>(packetData)); });
 
-	msgHandlerMap.emplace(MessageType::SYMBOL_INDEX_MAPPING, [=](char packetData[]) { 
+	msgHandlerMap.emplace(MessageType::SYMBOL_INDEX_MAPPING, [=](char packetData[]) {
 		this->handleSymbolIndexMapping(loadMessage<Message::SymbolIndexMapping>(packetData)); });
 
-	msgHandlerMap.emplace(MessageType::SYMBOL_CLEAR, [=](char packetData[]) { 
-			this->handleSymbolClear(loadMessage<Message::SymbolClear>(packetData)); });
+	msgHandlerMap.emplace(MessageType::SYMBOL_CLEAR, [=](char packetData[]) {
+		this->handleSymbolClear(loadMessage<Message::SymbolClear>(packetData)); });
 }
 
 void Decoder::handleTrade(const std::shared_ptr<Message::Trade> msg) const

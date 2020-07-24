@@ -8,7 +8,7 @@ class Context
 {
 public:
 	using SymbolMap = std::unordered_map<uint32_t, Message::SymbolIndexMapping>;
-	
+
 private:
 	std::shared_ptr<SymbolMap> symbolMap;
 	AmqpClient::Channel::ptr_t mqConnection;
